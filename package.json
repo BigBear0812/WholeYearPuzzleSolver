@@ -4,6 +4,7 @@
   "description": "Solver for The Whole Year Puzzle",
   "main": "index.js",
   "scripts": {
+    "solution": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Matthew Miller",

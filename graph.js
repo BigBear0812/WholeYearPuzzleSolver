@@ -1,10 +1,13 @@
-
+import { nodes, pieces } from './data.js';
 /**
  * A Weighted Graph
  */
-class Graph {
-  constructor(){
-    this.edges = {};
+export class Graph {
+  constructor(month, day){
+    this.edges = new Map(nodes.filter(node => node[1].val != month && node[1].val != day));
+    this.solutions = [];
+    this.month = month;
+    this.day = day;
   }
 
   /**
@@ -53,5 +56,60 @@ class Graph {
    */
   #key(x, y){
     return `${x},${y}`;
+  }
+
+  findSolutions(){
+    this.#dfs(pieces, new Map());
+  }
+
+  #dfs(pieces, visited){
+    if(pieces.length == 0){
+      this.solutions.push(visited);
+      return;
+    }
+    if(this.solutions.length > 0){
+      return;
+    }
+    
+    let current = pieces.shift();
+
+    for(let variant of current.variants){
+      let yStart = 0;
+      for(let y = yStart; y <= 6; y++){
+        let xStart = y === 6 ? 2 : 0;
+        let xEnd = y === 6 ? 4 : y >= 2 && y <= 5 ? 6 : 5;
+        for(let x = xStart; x <= xEnd; x++){
+          let coordinates = variant.map(coord => `${coord.x + x},${coord.y + y}`);
+          if(coordinates.every(coordinates => this.edges.has(coordinates) && !visited.has(coordinates))){
+            let newVisited = new Map(visited);
+            let newPieces = new Array(...pieces);
+            coordinates.forEach(coord => newVisited.set(coord, current.symbol));
+            this.#dfs(newPieces, newVisited);
+          }
+        }
+      }
+    }
+  }
+
+  printSolutions(){
+    for(let solution of this.solutions){
+      this.#print(solution);
+    }
+  }
+
+  #print(solution){
+    let blankPositions = new Set(nodes.filter(node => node[1].val == this.month || node[1].val == this.day).map(node => node[0]));
+    let output = '';
+    for(let y = 0; y <= 6; y++){
+      let xStart = y === 6 ? 2 : 0;
+      let xEnd = y === 6 ? 4 : y >= 2 && y <= 5 ? 6 : 5;
+      output += ' '.repeat(xStart);
+      for(let x = xStart; x <= xEnd; x++){
+        let key = `${x},${y}`;
+        output += blankPositions.has(key) ? 'X' : solution.has(key) ? solution.get(key) : '.';
+      }
+      output += '\n';
+    }
+    console.log(output);
   }
 }
