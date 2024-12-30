@@ -40,9 +40,9 @@ const BgBrightMagenta = "\x1b[105m"
 const BgBrightCyan = "\x1b[106m"
 const BgBrightWhite = "\x1b[107m"
 
-export const nodes = [
+export const spaces = [
   ['0,0', {x: 0, y: 0, name: 'Jan', neighbors: ['1,0', '0,1'], val: 'Jan'}],
-  ['1,0', {x: 1, y: 0, name: 'Fed', neighbors: ['0,0', '2,0', '1,1'], val: 'Feb'}],
+  ['1,0', {x: 1, y: 0, name: 'Feb', neighbors: ['0,0', '2,0', '1,1'], val: 'Feb'}],
   ['2,0', {x: 2, y: 0, name: 'Mar', neighbors: ['1,0', '3,0', '2,1'], val: 'Mar'}],
   ['3,0', {x: 3, y: 0, name: 'Apr', neighbors: ['2,0', '4,0', '3,1'], val: 'Apr'}],
   ['4,0', {x: 4, y: 0, name: 'May', neighbors: ['3,0', '5,0', '4,1'], val: 'May'}],
@@ -86,43 +86,11 @@ export const nodes = [
   ['4,6', {x: 4, y: 6, name: '31 ', neighbors: ['4,5', '3,6'], val: 31}],
 ];
 
+/**
+ * Pieces for the puzzle to be placed. These are order by number of spaces 
+ * each piece occupies descending then by number of variants the piece has descending
+ */
 export const pieces = [
-  //  #
-  // ###
-  //  #
-  {
-    name: 'plus',
-    symbol: FgBlack + BgBlue + '+' + Reset,
-    variants: [
-      [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 1, y: 2}]
-    ]
-  },
-  // ##   ## #     #
-  //  #   #  ### ###
-  //  ## ##    # #
-  {
-    name: 'Large Z',
-    symbol: FgBlack + BgBrightWhite + 'Z' + Reset,
-    variants: [
-      [{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 2}],
-      [{x: 2, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 0, y: 2}],
-      [{x: 0, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2}],
-      [{x: 2, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 0, y: 2}],
-    ]
-  },
-  // ## ## ### # #
-  // #   # # # ###
-  // ## ##
-  {
-    name: 'U',
-    symbol: FgBlack + BgCyan + 'U' + Reset,
-    variants: [
-      [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}],
-      [{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}],
-      [{x: 0, y: 0}, {x: 1, y: 0}, {x: 2, y: 0}, {x: 0, y: 1}, {x: 2, y: 1}],
-      [{x: 0, y: 0}, {x: 2, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}],
-    ]
-  },
   // ## ## #   # #### #### #       #
   // #   # #   # #       # #### ####
   // #   # #   #
@@ -156,6 +124,42 @@ export const pieces = [
       [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}],
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 0, y: 2}],
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: 2}],
+    ]
+  },
+  // ##   ## #     #
+  //  #   #  ### ###
+  //  ## ##    # #
+  {
+    name: 'Large Z',
+    symbol: FgBlack + BgBrightWhite + 'Z' + Reset,
+    variants: [
+      [{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 2}],
+      [{x: 2, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 0, y: 2}],
+      [{x: 0, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2}],
+      [{x: 2, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 0, y: 2}],
+    ]
+  },
+  // ## ## ### # #
+  // #   # # # ###
+  // ## ##
+  {
+    name: 'U',
+    symbol: FgBlack + BgCyan + 'U' + Reset,
+    variants: [
+      [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}],
+      [{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}],
+      [{x: 0, y: 0}, {x: 1, y: 0}, {x: 2, y: 0}, {x: 0, y: 1}, {x: 2, y: 1}],
+      [{x: 0, y: 0}, {x: 2, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}],
+    ]
+  },
+  //  #
+  // ###
+  //  #
+  {
+    name: 'plus',
+    symbol: FgBlack + BgBlue + '+' + Reset,
+    variants: [
+      [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 1, y: 2}]
     ]
   },
   // ## ## #   # ### ### #     #
