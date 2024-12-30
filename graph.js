@@ -1,4 +1,4 @@
-import { nodes, pieces } from './data.js';
+import { nodes, pieces, blank, empty } from './data.js';
 /**
  * A Weighted Graph
  */
@@ -97,18 +97,28 @@ export class Graph {
     }
   }
 
-  #print(solution){
-    let blankPositions = new Set(nodes.filter(node => node[1].val == this.month || node[1].val == this.day).map(node => node[0]));
+  #print(solution, blockWidth = 3, blockHeight = 2){
+    let blankPositions = new Map(nodes.filter(node => node[1].val == this.month || node[1].val == this.day).map(node => [node[0], node[1].name]));
     let output = '';
     for(let y = 0; y <= 6; y++){
+      let spacer = y === 6 ? 2*blockWidth : 0;
+      let line  = ' '.repeat(spacer);
       let xStart = y === 6 ? 2 : 0;
       let xEnd = y === 6 ? 4 : y >= 2 && y <= 5 ? 6 : 5;
-      output += ' '.repeat(xStart);
       for(let x = xStart; x <= xEnd; x++){
         let key = `${x},${y}`;
-        output += blankPositions.has(key) ? 'X' : solution.has(key) ? solution.get(key) : '.';
+        let char = blankPositions.has(key) 
+          ? blockWidth === 3 
+            ? blankPositions.get(key) 
+            : blank.repeat(blockWidth) 
+          : solution.has(key)
+            ? solution.get(key).repeat(blockWidth) 
+            : empty.repeat(blockWidth);
+        line += char;
       }
-      output += '\n';
+      line += '\n';
+      line = line.repeat(blockHeight);
+      output += line;
     }
     console.log(output);
   }
