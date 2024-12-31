@@ -12,7 +12,8 @@
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}\\src\\index.js",
-      "args": ["Mar", "5", "--time"]
+      // "args": ["Mar", "5", "--time"]
+      "args": ["Dec", "30", "--time"]
     }
   ]
 }

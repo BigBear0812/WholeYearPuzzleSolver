@@ -1,3 +1,4 @@
+// Ansi console colors and styles
 const Reset = "\x1b[0m"
 const Bright = "\x1b[1m"
 const Dim = "\x1b[2m"
@@ -40,6 +41,7 @@ const BgBrightMagenta = "\x1b[105m"
 const BgBrightCyan = "\x1b[106m"
 const BgBrightWhite = "\x1b[107m"
 
+// Spaces on the puzzle board
 export const spaces = [
   ['0,0', {x: 0, y: 0, name: 'Jan', neighbors: ['1,0', '0,1'], val: 'Jan'}],
   ['1,0', {x: 1, y: 0, name: 'Feb', neighbors: ['0,0', '2,0', '1,1'], val: 'Feb'}],
@@ -216,6 +218,7 @@ export const pieces = [
   },
 ]
 
+// Blank and empty spaces
 export const blank = Reset + 'X';
 export const empty = Reset + '.';
 
