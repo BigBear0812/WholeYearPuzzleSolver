@@ -100,6 +100,7 @@ export const pieces = [
   {
     name: 'Large L',
     symbol: FgBlack + BgGreen + 'L' + Reset,
+    htmlSymbol: '<span style="background-color: #859900; color: #073642">L</span>',
     variants: [      
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 0, y: 3}],
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 1, y: 3}],
@@ -117,6 +118,7 @@ export const pieces = [
   {
     name: '9',
     symbol: FgBlack + BgMagenta + '9' + Reset,
+    htmlSymbol: '<span style="background-color: #d33682; color: #073642">9</span>',
     variants: [
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}],
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 0}],
@@ -134,6 +136,7 @@ export const pieces = [
   {
     name: 'Large Z',
     symbol: FgBlack + BgBrightWhite + 'Z' + Reset,
+    htmlSymbol: '<span style="background-color:  #fdf6e3; color: #073642">Z</span>',
     variants: [
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 2}],
       [{x: 2, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 0, y: 2}],
@@ -147,6 +150,7 @@ export const pieces = [
   {
     name: 'U',
     symbol: FgBlack + BgCyan + 'U' + Reset,
+    htmlSymbol: '<span style="background-color: #2aa198; color: #073642">U</span>',
     variants: [
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}],
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}],
@@ -160,6 +164,7 @@ export const pieces = [
   {
     name: 'plus',
     symbol: FgBlack + BgBlue + '+' + Reset,
+    htmlSymbol: '<span style="background-color: #268bd2; color: #073642">+</span>',
     variants: [
       [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 1, y: 2}]
     ]
@@ -170,6 +175,7 @@ export const pieces = [
   {
     name: 'Small L',
     symbol: FgBlack + BgRed + 'l' + Reset,
+    htmlSymbol: '<span style="background-color: #dc322f; color: #073642">l</span>',
     variants: [
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}],
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}],
@@ -187,6 +193,7 @@ export const pieces = [
   {
     name: 'Small Z',
     symbol: FgBlack + BgBrightMagenta + 'z' + Reset,
+    htmlSymbol: '<span style="background-color: #6c71c4; color: #073642">z</span>',
     variants: [
       [{x: 0, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: 2}],
       [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 0, y: 2}],
@@ -200,6 +207,7 @@ export const pieces = [
   {
     name: 'T',
     symbol: FgBlack + BgYellow + 'T' + Reset,
+    htmlSymbol: '<span style="background-color: #b58900; color: #073642">T</span>',
     variants: [
       [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}],
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 2, y: 0}, {x: 1, y: 1}],
@@ -212,6 +220,7 @@ export const pieces = [
   {
     name: 'square',
     symbol: FgBlack + BgBrightRed + 'S' + Reset,
+    htmlSymbol: '<span style="background-color: #cb4b16; color: #073642">S</span>',
     variants: [
       [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}]
     ]
@@ -220,5 +229,7 @@ export const pieces = [
 
 // Blank and empty spaces
 export const blank = Reset + 'X';
+export const blankHtml = 'X';
 export const empty = Reset + '.';
+export const emptyHtml = '.';
 

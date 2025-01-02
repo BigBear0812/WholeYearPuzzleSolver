@@ -1,4 +1,4 @@
-import { spaces, pieces, blank, empty } from './data.js';
+import { spaces, pieces, blank, empty, blankHtml, emptyHtml } from './data.js';
 /**
  * A Whole, Year Puzzle Solver
  */
@@ -24,7 +24,7 @@ export class Solver {
    */
   async findSolutions(showAll = false){
     // Use depth first search to find the puzzle solutions
-    this.#dfs(pieces, new Map(), showAll);
+    this.#dfs(new Array(...pieces), new Map(), showAll);
   }
 
   /**
@@ -63,7 +63,7 @@ export class Solver {
             let newVisited = new Map(visited);
             let newPieces = new Array(...pieces);
             // Add the coordinates to the visited map
-            coordinates.forEach(coord => newVisited.set(coord, current.symbol));
+            coordinates.forEach(coord => newVisited.set(coord, {symbol: current.symbol, htmlSymbol: current.htmlSymbol}));
             // Recursively call dfs with the new pieces and visited map
             this.#dfs(newPieces, newVisited, showAll);
           }
@@ -90,12 +90,15 @@ export class Solver {
 
   /**
    * Create all of the solutions output
+   * @param {boolean} html True if the output should be formatted as HTML
    * @returns {string} The output for all of the solutions
    */
-  createSolutionOutput(){
+  createSolutionOutput(html){
     let output = '';
     for(let solution of this.solutions){
-      output += this.#createOutput(solution);
+      output += this.#createOutput(solution, html);
+      if(html)
+        output = `<code>${output}</code>`;
     }
     if(this.solutions.length == 0){
       output += 'No solutions found.';
@@ -109,11 +112,12 @@ export class Solver {
   /**
    * Create the console output string for the solution
    * @param {Map} solution A single solution Map of visited locations and their symbols
+   * @param {boolean} html True if the output should be formatted as HTML
    * @param {number} blockWidth The width to display each block
    * @param {number} blockHeight The height to display each block
    * @returns {string} The output for the solution
    */
-  #createOutput(solution, blockWidth = 3, blockHeight = 2){
+  #createOutput(solution, html, blockWidth = 3, blockHeight = 2){
     // Get the output values for the blank positions in this solution
     let blankPositions = new Map(spaces.filter(node => node[1].val == this.month || node[1].val == this.day).map(node => [node[0], node[1].name]));
     // Create the output string for the solution
@@ -137,10 +141,16 @@ export class Solver {
         let char = blankPositions.has(key) 
           ? blockWidth === 3 
             ? blankPositions.get(key) 
-            : blank.repeat(blockWidth) 
+            : html 
+              ? blankHtml.repeat(blockWidth) 
+              : blank.repeat(blockWidth) 
           : solution.has(key)
-            ? solution.get(key).repeat(blockWidth) 
-            : empty.repeat(blockWidth);
+            ? html 
+              ? solution.get(key).htmlSymbol.repeat(blockWidth) 
+              : solution.get(key).symbol.repeat(blockWidth) 
+            : html 
+              ? emptyHtml.repeat(blockWidth)
+              : empty.repeat(blockWidth);
         line += char;
       }
       // Add a new line and repeat this line for the block height
